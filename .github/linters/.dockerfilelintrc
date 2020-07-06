@@ -66,7 +66,7 @@ rules:
   invalid_command: on
 
   # Expose Only Container Port
-  expose_host_port: on
+  expose_host_port: off
 
   # Using LABEL should be in key=value format
   label_invalid: on
