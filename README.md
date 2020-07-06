@@ -1,5 +1,8 @@
 # Elasticsearch for ChannelFinder Service
 
+![Docker Image CI](https://github.com/jeonghanlee/es4epics/workflows/Docker%20Image%20CI/badge.svg)
+![Linter Run](https://github.com/jeonghanlee/es4epics/workflows/Linter%20Run/badge.svg)
+
 ## Notice
 
 This image only have been tested with a local and personal environment, not with any production environment. Thus, please don't use this image for any deployment or production purpose.
