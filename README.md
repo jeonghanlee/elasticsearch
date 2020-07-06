@@ -1,4 +1,4 @@
-# Elasticsearch for ChannelFinder Service
+# EPICS Middleware Index Mappings Elasticsearch (Alpine 3.12 / ES 6.4.3)
 
 ![Docker Image CI](https://github.com/jeonghanlee/es4epics/workflows/Docker%20Image%20CI/badge.svg)
 ![Linter Run](https://github.com/jeonghanlee/es4epics/workflows/Linter%20Run/badge.svg)
