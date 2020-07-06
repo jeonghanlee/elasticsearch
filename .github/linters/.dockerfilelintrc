@@ -60,13 +60,13 @@ rules:
   apkadd-missing-virtual: on
 
   # Exposing ports should only be valid port numbers
-  invalid_port: on
+  invalid_port: off
 
   # Only valid commands are allowed in a Dockerfile
-  invalid_command: off
+  invalid_command: on
 
   # Expose Only Container Port
-  expose_host_port: off
+  expose_host_port: on
 
   # Using LABEL should be in key=value format
   label_invalid: on
