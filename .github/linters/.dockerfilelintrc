@@ -63,7 +63,7 @@ rules:
   invalid_port: off
 
   # Only valid commands are allowed in a Dockerfile
-  invalid_command: on
+  invalid_command: off
 
   # Expose Only Container Port
   expose_host_port: off
