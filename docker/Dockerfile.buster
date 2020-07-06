@@ -1,0 +1,70 @@
+#  author  : Jeong Han Lee
+#  email   : jeonghan.lee@gmail.com
+#  date    : Wednesday, July  1 14:32:24 PDT 2020
+#  version : 0.0.1
+#
+FROM debian:buster AS builder
+
+ENV DOCKER_ES_HOME=/usr/share/elasticsearch
+ENV DOCKER_ES_PATH_CONF=/etc/elasticsearch
+ENV DOCKER_ES_LIB=/var/lib/elasticsearch
+ENV DOCKER_ES_LOG=/var/log/elasticsearch
+ENV DOCKER_WORK_PATH=/home/ES
+
+ENV PATH ${DOCKER_ES_PATH}/bin:$PATH
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
+
+WORKDIR ${DOCKER_WORK_PATH}
+RUN apt update && apt install -y openjdk-11-jdk wget  
+RUN wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.3.1.deb && \
+    apt install -y ./elasticsearch-6.3.1.deb
+
+
+
+FROM debian:buster-slim
+
+LABEL maintainer="Jeong Han Lee <jeonghan.lee@gmail.com>"
+
+ARG BUILD_DATE
+ARG BUILD_VERSION
+ARG TZ=America/Los_Angeles
+
+ENV ELASTIC_CONTAINER true
+
+ENV DOCKER_ES_HOME=/usr/share/elasticsearch
+ENV DOCKER_ES_PATH_CONF=/etc/elasticsearch
+ENV DOCKER_ES_LIB=/var/lib/elasticsearch
+ENV DOCKER_ES_LOG=/var/log/elasticsearch
+
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
+ENV PATH ${DOCKER_ES_HOME}/bin:${JAVA_HOME}/bin:$PATH
+
+### Install minimal packages for ChannelFinder
+RUN apt update && apt install -y tzdata
+
+COPY --from=builder ${DOCKER_ES_PATH} ${DOCKER_ES_PATH}
+COPY --from=builder ${DOCKER_ES_PATH_CONF} ${DOCKER_ES_PATH_CONF}
+COPY --from=builder ${DOCKER_ES_LIB} ${DOCKER_ES_LIB}
+COPY --from=builder ${DOCKER_ES_LOG} ${DOCKER_ES_LOG}
+COPY --from=builder ${JAVA_HOME} ${JAVA_HOME}
+### YOUR TIME ZONE
+ENV TZ ${TZ}
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+
+EXPOSE 9200 9300
+
+LABEL maintainer="Jeong Han Lee <jeonghan.lee@gmail.com>"
+# Labels.
+LABEL org.label-schema.schema-version="1.0"
+LABEL org.label-schema.build-date=$BUILD_DATE
+LABEL org.label-schema.name="jeonghanlee/es4epics"
+LABEL org.label-schema.description="EPICS Elasticsearch EPICS middleware Docker Image"
+LABEL org.label-schema.url="https://github.com/jeonghanlee/es4epics"
+LABEL org.label-schema.version=$BUILD_VERSION
+LABEL org.label-schema.docker.cmd="docker run --network=host --detach --rm --name=es4epics jeonghanlee/es4epics:tagname"
+
+WORKDIR ${DOCKER_ES_HOME}
+USER elasticsearch
+ENTRYPOINT ["elasticsearch","-quiet"]
+
