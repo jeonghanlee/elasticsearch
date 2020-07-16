@@ -1,0 +1,16 @@
+# ignore folders
+.git
+docs
+configure
+# ignore files
+.gitignore
+.dockerignore
+LICENSE
+Makefile
+docker/scripts
+docker/Dockerfile*
+docker/.dockerfilelintrc
+# ignore all Docker files
+Dockerfile*
+docker-compose.yml
+*.md
