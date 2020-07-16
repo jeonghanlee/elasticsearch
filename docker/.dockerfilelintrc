@@ -1,2 +1,2 @@
 rules:
-  invalid_port: on
+  invalid_port: off
