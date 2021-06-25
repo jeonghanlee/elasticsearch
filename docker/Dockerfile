@@ -18,11 +18,11 @@ LABEL maintainer="Jeong Han Lee <jeonghan.lee@gmail.com>"
 # Labels.
 LABEL org.label-schema.schema-version="1.0"
 LABEL org.label-schema.build-date=$BUILD_DATE
-LABEL org.label-schema.name="jeonghanlee/es4epics"
+LABEL org.label-schema.name="alscontrols/es4epics"
 LABEL org.label-schema.description="EPICS Elasticsearch EPICS middleware Docker Image"
 LABEL org.label-schema.url="https://github.com/jeonghanlee/es4epics"
 LABEL org.label-schema.version=$BUILD_VERSION
-LABEL org.label-schema.docker.cmd="docker run --network=host --detach --rm --name=es4epics jeonghanlee/es4epics:latest"
+LABEL org.label-schema.docker.cmd="docker run --network=host --detach --rm --name=es4epics alscontrols/es4epics:latest"
 
 ENV ELASTIC_CONTAINER=true
 ENV ES_PORT_REST ${ES_PORT_REST}
